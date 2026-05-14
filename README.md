@@ -10,13 +10,10 @@
 
 ---
 
-> **This is an unofficial PyTorch reproduction** of *ELF: Embedded Language Flows*.
-> It is not affiliated with or endorsed by the paper authors. The official JAX/TPU
-> implementation is at <https://github.com/lillian039/ELF>, and the official
-> checkpoints are in HuggingFace at
-> [`embedded-language-flows`](https://huggingface.co/embedded-language-flows).
->
-> This repository was developed using [Claude Code](https://claude.com/claude-code).
+ **This is an unofficial PyTorch reproduction** of *ELF: Embedded Language Flows*.\
+  The official JAX/TPU implementation is at <https://github.com/lillian039/ELF>, and the official checkpoints are in HuggingFace at [`embedded-language-flows`](https://huggingface.co/embedded-language-flows).
+
+ This repository was developed using [Claude Code](https://claude.com/claude-code).
 
 ## Reproduction status
 
@@ -25,7 +22,7 @@ OpenWebText (unconditional), ELF-B (105M), 32-step SDE, γ=1.5, SC-CFG=3:
 | Metric | Paper (TPU v5p-64) | Reproduction (8× B200 DDP, Lightning) |
 | --- | --- | --- |
 | Gen. PPL ↓ | 24.1 | **25.61** |
-| Entropy ↑ | 5.15 | **5.20** |
+| Entropy | 5.15 | **5.20** |
 
 Per-epoch results (32-step SDE, 256 samples):
 
