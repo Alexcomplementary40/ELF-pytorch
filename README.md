@@ -49,7 +49,7 @@ and [`reproduction/elf_b-owt/per_epoch/metrics.jsonl`](reproduction/elf_b-owt/pe
   utilities. 8-GPU CUDA DDP via PyTorch Lightning.
 - [`reproduction/elf_b-owt/`](reproduction/elf_b-owt/): config snapshot, 1000 final
  samples, and per-epoch samples. The
-  checkpoint is hosted separately (see [Quickstart](#quickstart-evaluate-the-reproduced-checkpoint)).
+  checkpoint is hosted separately (see Quickstart).
 
 ## Quickstart — evaluate the reproduced checkpoint
 
